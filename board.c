@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "org_board.h"
+#include "board.h"
 
 void printplace(place_t * place) {
     printf("-- %s --\n", place->name);
