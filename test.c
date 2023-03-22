@@ -3,12 +3,11 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "org_board.h"
+#include "monopoly.h"
 
 int main() {
 
     place_t * test_place = (place_t *) malloc(sizeof(place_t));
-    //test_place->name = (char *) malloc((sizeof(char) * 4) + 1);
     test_place->name = strdup("Test Property\0");
     test_place->rent_list = (unsigned short *) malloc(sizeof(unsigned short) * 5);
     test_place->rent_list[0] = 0;
