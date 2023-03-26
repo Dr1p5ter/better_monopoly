@@ -83,9 +83,10 @@ void printplace(place_t * place) {
 
     if (place->rent_list) {
         printf("Rent list = \n");
-        for (int i = 0; i < 5; i++) {
-            printf("\tHouse count [%d] = %d\n", i, place->rent_list[i]);
+        for (int i = 0; i < RENT_LIST_LEN - 2; i++) {
+            printf("\tHouse Cost given house count %d = %d\n", i, place->rent_list[i]);
         }
+        printf("\tHotel Cost = %d\n", place->rent_list[RENT_LIST_LEN - 1]);
     } else {
         printf("* Rent list unavailable *\n");
     }
@@ -93,5 +94,5 @@ void printplace(place_t * place) {
 } /* printplace() */
 
 unsigned short unmorgage_price(place_t * place) {
-    return place->m_price * 1.10;
+    return (unsigned short) place->m_price * 1.10;
 } /* unmorgage_price() */
