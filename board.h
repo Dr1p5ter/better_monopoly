@@ -1,5 +1,13 @@
 /* -- DEFINES -- */
 
+#define RENT_LIST_LEN (6)  // Size to hold rent per property status
+#define MAX_NAME_LEN  (32) // Max size possible for a name
+
+/* -- GLOBALS -- */
+
+extern unsigned short freeparktotal;
+extern place_t * boardStart;
+
 /* -- ENUMS -- */
 
 typedef enum {  /* type of board place */
@@ -38,7 +46,13 @@ typedef struct board_place { /* entry for the board place */
     unsigned short h_price;     /* House price of property */
 } place_t;
 
+typedef struct node { /* Singly linked list for handling board position */
+    place_t * place;            /* place information at position */
+    struct node * next_place;   /* next place in the board */
+} place_list;
+
 /* -- PROTOTYPES -- */
 
 void printplace(place_t *);
+void readBoardFile(char *);
 unsigned short unmorgage_price(place_t * );
