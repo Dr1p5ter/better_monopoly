@@ -1,12 +1,8 @@
 /* -- DEFINES -- */
 
-#define RENT_LIST_LEN (6)  // Size to hold rent per property status
-#define MAX_NAME_LEN  (32) // Max size possible for a name
-
-/* -- GLOBALS -- */
-
-extern unsigned short freeparktotal;
-extern place_t * boardStart;
+#define RENT_LIST_LEN   (6)  // Size to hold rent per property status
+#define MAX_NAME_LEN    (32) // Max size possible for a name
+#define MAX_NUM_REC_LEN (11) // Max size possible for number records in csv
 
 /* -- ENUMS -- */
 
@@ -50,6 +46,13 @@ typedef struct node { /* Singly linked list for handling board position */
     place_t * place;            /* place information at position */
     struct node * next_place;   /* next place in the board */
 } place_list;
+
+/* -- GLOBALS -- */
+
+extern place_list * boardlist;        // Points to the beginning of the list
+extern char * boardfilepath;          // Points to the name of the file stroring the board
+extern unsigned short freeparktotal;  // The total amount of money in the free parking
+extern unsigned short boardlistlen;   // Keeps track of the amount of items in the boardlist
 
 /* -- PROTOTYPES -- */
 

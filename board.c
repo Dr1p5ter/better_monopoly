@@ -1,5 +1,15 @@
+#include <malloc.h>
 #include <stdio.h>
 #include "board.h"
+
+/* Globals */
+
+place_list * boardlist = NULL;
+char * boardfilepath = "property.csv";
+unsigned short freeparktotal = 0;
+unsigned short boardlistlen = 0;
+
+/* Functions */
 
 void printplace(place_t * place) {
     printf("-- %s --\n", place->name);
