@@ -32,13 +32,13 @@ typedef enum {   /* type of color a the property */
 /* -- STRUCTS -- */
 
 typedef struct board_place { /* entry for the board place */
-    char * name;                /* Name of the property  */
+    char * name;       /* Name of the property  */
     short * rent_list; /* Rent for each stage */
-    p_type type;                /* Type of property      */
-    p_color color;              /* Color of property     */
+    p_type type;       /* Type of property      */
+    p_color color;     /* Color of property     */
     short price;       /* Price of the property */
-    short m_price;     /* Morgage Value of the property */
     short h_price;     /* House price of property */
+    short ismorg;       /* If the place is morgaged */
 } place_t;
 
 typedef struct node { /* Singly linked list for handling board position */
@@ -58,4 +58,5 @@ extern short boardlistlen;   // Keeps track of the amount of items in the boardl
 void printplace(place_t *);
 void printboardlist(place_list *);
 void readboardfile(char *);
-short unmorgprice(place_t * );
+short morgprice(place_t *);
+short unmorgprice(place_t *);

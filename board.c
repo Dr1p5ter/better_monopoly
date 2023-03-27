@@ -65,7 +65,9 @@ void printplace(place_t * place) {
 
     if ((place->type == PROPERTY) || (place->type == RAILROAD) || (place->type == UTIL)) {
         printf("|Price = %d\n", place->price);
-        printf("|Morgage value = %d\n", place->m_price);
+        printf("|Morgage value = %d\n", morgprice(place));
+        printf("|Morgage price = %d\n", unmorgprice(place));
+        printf("|Is it morgaged = %s\n", ((place->ismorg) ? "Yes" : "No"));
         printf("|Price for house = %d\n", place->h_price);
 
         /* Print rent costs */
@@ -154,11 +156,11 @@ void readboardfile(char * filename) {
         currPlace->place->type = atoi(strtok(NULL, ","));
         currPlace->place->color = atoi(strtok(NULL, ","));
         currPlace->place->price = atoi(strtok(NULL, ","));
-        currPlace->place->m_price = atoi(strtok(NULL, ","));
         currPlace->place->h_price = atoi(strtok(NULL, ","));
         currPlace->place->rent_list = (short *) malloc(sizeof(short) * RENT_LIST_LEN);
         for (int i = 0; i < RENT_LIST_LEN; i++)
             currPlace->place->rent_list[i] = atoi(strtok(NULL, ","));
+        currPlace->place->ismorg = 0;
 
         /* Clear junk from strtok */
 
@@ -175,10 +177,19 @@ void readboardfile(char * filename) {
 } /* readBoardFile*/
 
 /**
+ * This function will return the morgage price used to sell the property. This is settled by the
+ * formula price / 2.
+*/
+
+short morgprice(place_t * place) {
+    return (short) place->price / 2;
+}
+
+/**
  * This function will return the unmorgage price used to buy back properties that have been
  * morgaged. Unmorgage price is 110% what the original morgage price was.
 */
 
 short unmorgprice(place_t * place) {
-    return (short) place->m_price * 1.10;
+    return (short) morgprice(place) * 1.10;
 } /* unmorgprice() */
