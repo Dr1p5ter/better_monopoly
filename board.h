@@ -2,7 +2,6 @@
 
 #define RENT_LIST_LEN   (6)  // Size to hold rent per property status
 #define MAX_NAME_LEN    (32) // Max size possible for a name
-#define MAX_NUM_REC_LEN (11) // Max size possible for number records in csv
 
 /* -- ENUMS -- */
 
@@ -57,5 +56,6 @@ extern unsigned short boardlistlen;   // Keeps track of the amount of items in t
 /* -- PROTOTYPES -- */
 
 void printplace(place_t *);
-void readBoardFile(char *);
-unsigned short unmorgage_price(place_t * );
+void printboardlist(place_list *);
+void readboardfile(char *);
+unsigned short unmorgprice(place_t * );
