@@ -1,5 +1,6 @@
 #include <malloc.h>
 #include <stdio.h>
+#include <string.h>
 #include "board.h"
 
 /* Globals */
@@ -102,6 +103,42 @@ void printplace(place_t * place) {
     }
     return;
 } /* printplace() */
+
+void readBoardFile(char * filename) {
+    /* check that the board list is not null */
+
+    if (boardlist != NULL) {
+        fprintf(stderr, "boardlist already defined! Exiting now...\n");
+        exit(EXIT_FAILURE);
+    }
+
+    /* Open the file */
+
+    FILE * board_file = NULL;
+    if ((board_file = fopen(boardfilepath, "r")) == NULL) {
+        fprintf(stderr, "File can't be opened! Exiting now...\n");
+        exit(EXIT_FAILURE);
+    }
+
+    /* Set up board for new reads */
+
+    boardlist = (place_list *) malloc(sizeof(place_list));
+    boardlist->next_place = NULL;
+    boardlist->place = NULL;
+    place_list * currPlace = boardlist;
+
+    /* Begin reading the file */
+
+    char buffer[1024] = {'\0'};
+    int checkEOF = 0;
+    fscanf(board_file, "%[^\n]\n", buffer); // Get rid of the csv header
+    while ((checkEOF = fscanf(board_file, "%[^\n]\n", buffer) != EOF)) {
+        /* grab the values in the string and store them in place_t */
+        char * token = strtok(buffer, ",");
+        int type = atoi(strtok(NULL, ","));
+        printf("type = %d\n", type);
+    }
+}
 
 unsigned short unmorgage_price(place_t * place) {
     return (unsigned short) place->m_price * 1.10;
