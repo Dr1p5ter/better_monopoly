@@ -1,0 +1,6 @@
+name, type, color, price, m_price, h_price, r0, r1, r2, r3, r4, r5
+Start Position (GO), 0, 0, 200, -1, -1, -1, -1, -1, -1, -1, -1
+Mediterranean Avenue, 8, 8, 60, 30, 50, 2, 10, 30, 90, 160, 250
+Comunity Chest, 3, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+Baltic Avenue, 8, 8, 60, 30, 50, 4, 20, 60, 180, 320, 450
+Income Tax, 5, 0, -200, -1, -1, -1, -1, -1, -1, -1, -1
