@@ -1,7 +1,12 @@
+/* -- INCLUDES -- */
+
+#include "player.h"
+
 /* -- DEFINES -- */
 
-#define RENT_LIST_LEN   (6)  // Size to hold rent per property status
-#define MAX_NAME_LEN    (32) // Max size possible for a name
+#define RENT_LIST_LEN      (6)  // Size to hold rent per property status
+#define LEN_P_COLOR_LIST   (8)  // Count of amount of colors represented in p_color
+#define MAX_NAME_LEN       (32) // Max size possible for a name
 
 /* -- ENUMS -- */
 
@@ -38,8 +43,15 @@ typedef struct board_place { /* entry for the board place */
     p_color color;     /* Color of property     */
     short price;       /* Price of the property */
     short h_price;     /* House price of property */
-    short ismorg;       /* If the place is morgaged */
+    short ismorg;      /* If the place is morgaged */
 } place_t;
+
+typedef struct place_owner_node { /* node for a list containing places indexed at p_color */
+    player_t * player;                     /* player holding the property */
+    char * place_name;                     /* name of place */
+    short is_owned;                        /* status of property */
+    struct place_owner_node * next_place;  /* next place in list if anymore */
+} place_owner_node_t;
 
 typedef struct node { /* Singly linked list for handling board position */
     place_t * place;            /* place information at position */
@@ -48,10 +60,11 @@ typedef struct node { /* Singly linked list for handling board position */
 
 /* -- GLOBALS -- */
 
-extern place_list * boardlist;        // Points to the beginning of the list
-extern char * boardfilepath;          // Points to the name of the file stroring the board
-extern short freeparktotal;  // The total amount of money in the free parking
-extern short boardlistlen;   // Keeps track of the amount of items in the boardlist
+extern place_list * boardlist;                          // Points to the beginning of the list
+extern place_owner_node_t * ownedlist;                  // Points to mini lists containing place information on ownership
+extern char * boardfilepath;                            // Points to the name of the file stroring the board
+extern short freeparktotal;                             // The total amount of money in the free parking
+extern short boardlistlen;                              // Keeps track of the amount of items in the boardlist
 
 /* -- PROTOTYPES -- */
 

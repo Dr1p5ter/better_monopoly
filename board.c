@@ -7,6 +7,7 @@
 /* Globals */
 
 place_list * boardlist = NULL;
+place_owner_node_t * ownedlist = NULL;
 char * boardfilepath = "boardlist.csv";
 short freeparktotal = 0;
 short boardlistlen = 0;
@@ -140,6 +141,14 @@ void readboardfile(char * filename) {
     boardlist->place = NULL;
     place_list * currPlace = boardlist;
 
+    /* TODO: Set up owner list */
+
+    // ownedlist = (place_owner_node_t *) malloc(sizeof(place_owner_node_t *) * LEN_P_COLOR_LIST);
+    // for (int i = 0; i < LEN_P_COLOR_LIST; i++) {
+    //     ownedlist[i] = (place_owner_node_t *) malloc(sizeof(place_owner_node_t));
+    //     ownedlist
+    // }
+
     /* Begin reading the file */
 
     char buffer[1024] = {'\0'};
@@ -171,6 +180,18 @@ void readboardfile(char * filename) {
         currPlace->next_place = (place_list *) malloc(sizeof(place_list));
         currPlace->next_place->next_place = NULL;
         currPlace->next_place->place = NULL;
+
+        /* TODO: add to ownerlist */
+
+        // if ((currPlace->place->type == UTIL) || (currPlace->place->type == PROPERTY) || (currPlace->place->type == RAILROAD)) {
+        //     if (&ownedlist[currPlace->place->color]) {
+
+        //     } else {
+        //         ownedlist[currPlace->place->color] = (place_owner_node_t *) malloc(sizeof(place_owner_node_t));
+        //     }
+        // }
+
+        /* incriment board list to next */
         currPlace = currPlace->next_place;
         boardlistlen++;
     }
