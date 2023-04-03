@@ -152,11 +152,11 @@ void readboardfile(char * filename) {
 
         /* Grab the values in the string and store them in place_t */
 
-        currPlace->place->name = strdup(strtok(buffer, ","));
-        currPlace->place->type = atoi(strtok(NULL, ","));
-        currPlace->place->color = atoi(strtok(NULL, ","));
-        currPlace->place->price = atoi(strtok(NULL, ","));
-        currPlace->place->h_price = atoi(strtok(NULL, ","));
+        currPlace->place->name = (char *) strdup(strtok(buffer, ","));
+        currPlace->place->type = (short) atoi(strtok(NULL, ","));
+        currPlace->place->color = (short) atoi(strtok(NULL, ","));
+        currPlace->place->price = (short) atoi(strtok(NULL, ","));
+        currPlace->place->h_price = (short) atoi(strtok(NULL, ","));
         currPlace->place->rent_list = (short *) malloc(sizeof(short) * RENT_LIST_LEN);
         for (int i = 0; i < RENT_LIST_LEN; i++)
             currPlace->place->rent_list[i] = atoi(strtok(NULL, ","));
