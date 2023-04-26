@@ -6,9 +6,9 @@
 
 /* Globals */
 
-place_list * boardlist = NULL;
-place_owner_node_t * ownedlist = NULL;
+place_t ** boardlist = NULL;
 char * boardfilepath = "boardlist.csv";
+short boardblocklen = 20;
 short freeparktotal = 0;
 short boardlistlen = 0;
 
@@ -95,7 +95,7 @@ void printplace(place_t * place) {
  * print anything. Used for debugging purposes.
 */
 
-void printboardlist(place_list * list) {
+void printboardlist(place_t ** list) {
     /* Check if the list pointer is null */
 
     if (!list) {
@@ -104,11 +104,9 @@ void printboardlist(place_list * list) {
 
     /* Move down the list printing the places */
 
-    place_list * curr = list;
-    while (curr) {
-        printplace(curr->place);
-        curr = curr->next_place;
-    }
+    for (int i = 0; i < boardlistlen; i++)
+        printplace(list[i]);
+
 } /* printboardlist() */
 
 /**
@@ -136,18 +134,7 @@ void readboardfile(char * filename) {
 
     /* Set up board for new reads */
 
-    boardlist = (place_list *) malloc(sizeof(place_list));
-    boardlist->next_place = NULL;
-    boardlist->place = NULL;
-    place_list * currPlace = boardlist;
-
-    /* TODO: Set up owner list */
-
-    // ownedlist = (place_owner_node_t *) malloc(sizeof(place_owner_node_t *) * LEN_P_COLOR_LIST);
-    // for (int i = 0; i < LEN_P_COLOR_LIST; i++) {
-    //     ownedlist[i] = (place_owner_node_t *) malloc(sizeof(place_owner_node_t));
-    //     ownedlist
-    // }
+    boardlist = (place_t **) malloc(sizeof(place_t *) * boardblocklen);
 
     /* Begin reading the file */
 
@@ -157,19 +144,19 @@ void readboardfile(char * filename) {
     while ((checkEOF = fscanf(board_file, "%[^\n]\n", buffer) != EOF)) {
         /* Allocate memory for place_t */
 
-        currPlace->place = (place_t *) malloc(sizeof(place_t));
+        place_t * currPlace = (place_t *) malloc(sizeof(place_t));
 
         /* Grab the values in the string and store them in place_t */
 
-        currPlace->place->name = (char *) strdup(strtok(buffer, ","));
-        currPlace->place->type = (short) atoi(strtok(NULL, ","));
-        currPlace->place->color = (short) atoi(strtok(NULL, ","));
-        currPlace->place->price = (short) atoi(strtok(NULL, ","));
-        currPlace->place->h_price = (short) atoi(strtok(NULL, ","));
-        currPlace->place->rent_list = (short *) malloc(sizeof(short) * RENT_LIST_LEN);
+        currPlace->name = (char *) strdup(strtok(buffer, ","));
+        currPlace->type = (short) atoi(strtok(NULL, ","));
+        currPlace->color = (short) atoi(strtok(NULL, ","));
+        currPlace->price = (short) atoi(strtok(NULL, ","));
+        currPlace->h_price = (short) atoi(strtok(NULL, ","));
+        currPlace->rent_list = (short *) malloc(sizeof(short) * RENT_LIST_LEN);
         for (int i = 0; i < RENT_LIST_LEN; i++)
-            currPlace->place->rent_list[i] = atoi(strtok(NULL, ","));
-        currPlace->place->ismorg = 0;
+            currPlace->rent_list[i] = atoi(strtok(NULL, ","));
+        currPlace->ismorg = 0;
 
         /* Clear junk from strtok */
 
@@ -177,23 +164,14 @@ void readboardfile(char * filename) {
 
         /* Update the board list */
 
-        currPlace->next_place = (place_list *) malloc(sizeof(place_list));
-        currPlace->next_place->next_place = NULL;
-        currPlace->next_place->place = NULL;
-
-        /* TODO: add to ownerlist */
-
-        // if ((currPlace->place->type == UTIL) || (currPlace->place->type == PROPERTY) || (currPlace->place->type == RAILROAD)) {
-        //     if (&ownedlist[currPlace->place->color]) {
-
-        //     } else {
-        //         ownedlist[currPlace->place->color] = (place_owner_node_t *) malloc(sizeof(place_owner_node_t));
-        //     }
-        // }
-
-        /* incriment board list to next */
-        currPlace = currPlace->next_place;
-        boardlistlen++;
+        boardlist[boardlistlen++] = currPlace;
+        if (boardlistlen == boardblocklen) {
+            boardblocklen += 20;
+            place_t ** newboardlist = (place_t **) realloc(boardlist, sizeof(place_t *) * boardblocklen);
+            boardlist = newboardlist;
+            newboardlist = NULL;
+        }
+        currPlace = NULL;
     }
 } /* readBoardFile*/
 
