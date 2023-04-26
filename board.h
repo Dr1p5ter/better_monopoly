@@ -57,6 +57,6 @@ extern short boardlistlen;             // Keeps track of the amount of items in 
 
 void printplace(place_t *);
 void printboardlist(place_t **);
-void readboardfile(char *);
+void _init_board_list(char *);
 short morgprice(place_t *);
 short unmorgprice(place_t *);

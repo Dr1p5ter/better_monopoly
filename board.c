@@ -116,7 +116,7 @@ void printboardlist(place_t ** list) {
  * the program from running.
 */
 
-void readboardfile(char * filename) {
+void _init_board_list(char * filename) {
     /* check that the board list is not null */
 
     if (boardlist != NULL) {
