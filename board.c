@@ -173,7 +173,7 @@ void _init_board_list(char * filename) {
         }
         currPlace = NULL;
     }
-} /* readBoardFile*/
+} /* _init_board_list() */
 
 /**
  * This function will return the morgage price used to sell the property. This is settled by the
@@ -182,7 +182,7 @@ void _init_board_list(char * filename) {
 
 short morgprice(place_t * place) {
     return (short) place->price / 2;
-}
+} /* morgprice() */
 
 /**
  * This function will return the unmorgage price used to buy back properties that have been
