@@ -4,8 +4,8 @@
 
 #define RENT_LIST_LEN      (6)  // Size to hold rent per property status
 #define LEN_P_COLOR        (9)  // Count of amount of colors represented in p_color
-#define Len_P_TYPE         (9)  // Count of amount of types represented in p_tyoe
-#define MAX_NAME_LEN       (32) // Max size possible for a name
+#define LEN_P_TYPE         (9)  // Count of amount of types represented in p_tyoe
+#define MAX_PROP_NAME_LEN  (32) // Max size possible for a property name
 
 /* -- ENUMS -- */
 
